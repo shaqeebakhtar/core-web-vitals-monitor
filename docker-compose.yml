@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  db:
+    container_name: cwvmonitordb
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    ports:
+      - 5500:3306
+    volumes:
+      - cwvmonitordata:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: cwvmonitor
+      MYSQL_USER: cwvmonitoradmin
+      MYSQL_PASSWORD: cwvmonitoradminpass
+
+volumes:
+  cwvmonitordata:
