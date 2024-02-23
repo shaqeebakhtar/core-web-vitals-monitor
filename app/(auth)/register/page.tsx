@@ -4,7 +4,7 @@ import RegisterForm from '../_components/regiter-form';
 const Register = () => {
   return (
     <>
-      <h1 className="font-bold text-2xl md:text-3xl text-center">
+      <h1 className="font-semibold text-2xl md:text-3xl text-center">
         Let&apos;s get started
       </h1>
       <RegisterForm />

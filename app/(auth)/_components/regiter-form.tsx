@@ -14,6 +14,7 @@ import { Input } from '@/components/ui/input';
 import { registerSchema, registerSchemaType } from '@/schemas/register';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Eye, EyeOff, Loader } from 'lucide-react';
+import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -24,6 +25,7 @@ const RegisterForm = () => {
 
   const handleGoogleSignin = () => {
     setIsGoogleSignin(true);
+    signIn('google');
   };
 
   const registerForm = useForm<registerSchemaType>({

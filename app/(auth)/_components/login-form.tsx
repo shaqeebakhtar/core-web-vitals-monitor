@@ -14,6 +14,7 @@ import { Input } from '@/components/ui/input';
 import { loginSchema, loginSchemaType } from '@/schemas/login';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Eye, EyeOff, Loader } from 'lucide-react';
+import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -24,6 +25,7 @@ const LoginForm = () => {
 
   const handleGoogleSignin = () => {
     setIsGoogleSignin(true);
+    signIn('google');
   };
 
   const loginForm = useForm<loginSchemaType>({

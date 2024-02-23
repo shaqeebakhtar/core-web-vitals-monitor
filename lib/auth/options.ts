@@ -1,4 +1,5 @@
 import CredentialsProvider from 'next-auth/providers/credentials';
+import GoogleProvider from 'next-auth/providers/google';
 import { DrizzleAdapter } from '@auth/drizzle-adapter';
 import { db } from '@/db';
 import { AuthOptions } from 'next-auth';
@@ -11,6 +12,10 @@ import { hash } from '../hash';
 export const authOptions: AuthOptions = {
   adapter: DrizzleAdapter(db, mysqlTable) as Adapter,
   providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    }),
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
@@ -35,5 +40,29 @@ export const authOptions: AuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   session: {
     strategy: 'jwt',
+  },
+  pages: {
+    signIn: '/login',
+  },
+  callbacks: {
+    jwt: async ({ token }) => {
+      const user = await db.query.users.findFirst({
+        where: eq(users.email, token?.email as string),
+      });
+
+      if (user) {
+        token.id = user.id;
+      }
+
+      return token;
+    },
+
+    session: async ({ session, token }) => {
+      if (session?.user) {
+        session.user.id = token.id as string;
+      }
+
+      return session;
+    },
   },
 };
