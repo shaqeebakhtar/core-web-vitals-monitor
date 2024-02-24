@@ -25,7 +25,7 @@ const LoginForm = () => {
 
   const handleGoogleSignin = () => {
     setIsGoogleSignin(true);
-    signIn('google');
+    signIn('google', { callbackUrl: '/' });
   };
 
   const loginForm = useForm<loginSchemaType>({

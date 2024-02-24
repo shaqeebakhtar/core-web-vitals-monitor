@@ -1,6 +1,11 @@
 import { Button } from '@/components/ui/button';
+import { authOptions } from '@/lib/auth/options';
+import { getServerSession } from 'next-auth';
 
-export default function Home() {
+export default async function Home() {
+  // const session = await getServerSession(authOptions);
+  // console.log('session ---', session);
+
   return (
     <main className="container mx-auto py-12 text-center space-y-2">
       <h1 className="text-6xl font-bold">

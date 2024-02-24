@@ -1,12 +1,11 @@
+import { db } from '@/db';
+import { getUserByEmail } from '@/services/user';
+import { DrizzleAdapter } from '@auth/drizzle-adapter';
+import { mysqlTable } from 'drizzle-orm/mysql-core';
+import { AuthOptions } from 'next-auth';
+import { Adapter } from 'next-auth/adapters';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
-import { DrizzleAdapter } from '@auth/drizzle-adapter';
-import { db } from '@/db';
-import { AuthOptions } from 'next-auth';
-import { mysqlTable } from 'drizzle-orm/mysql-core';
-import { Adapter } from 'next-auth/adapters';
-import { users } from '@/db/schema';
-import { eq } from 'drizzle-orm';
 import { hash } from '../hash';
 
 export const authOptions: AuthOptions = {
@@ -23,9 +22,7 @@ export const authOptions: AuthOptions = {
         password: { label: 'Password', type: 'password' },
       },
       authorize: async (credentials) => {
-        const user = await db.query.users.findFirst({
-          where: eq(users.email, credentials?.email as string),
-        });
+        const user = await getUserByEmail(credentials?.email as string);
 
         const hashedPassword = await hash(credentials?.password as string);
 
@@ -46,9 +43,7 @@ export const authOptions: AuthOptions = {
   },
   callbacks: {
     jwt: async ({ token }) => {
-      const user = await db.query.users.findFirst({
-        where: eq(users.email, token?.email as string),
-      });
+      const user = await getUserByEmail(token?.email as string);
 
       if (user) {
         token.id = user.id;
@@ -65,4 +60,5 @@ export const authOptions: AuthOptions = {
       return session;
     },
   },
+  debug: process.env.ENVIRONMENT === 'development',
 };
