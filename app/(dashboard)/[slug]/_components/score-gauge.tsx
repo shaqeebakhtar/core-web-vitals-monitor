@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import React from 'react';
 
 type ScoreGaugeProps = {
@@ -5,13 +6,27 @@ type ScoreGaugeProps = {
 };
 
 const ScoreGauge = ({ score }: ScoreGaugeProps) => {
-  const color = score >= 90 ? 'green' : score < 50 ? 'red' : 'orange';
-
   return (
     <div
-      className={`rounded-full w-12 h-12 bg-${color}-400/20 p-3 inline-flex items-center justify-center`}
+      className={cn(
+        'rounded-full w-12 h-12 p-3 inline-flex items-center justify-center',
+        score >= 90
+          ? 'bg-green-400/20'
+          : score < 50
+          ? 'bg-red-400/20'
+          : 'bg-orange-400/20'
+      )}
     >
-      <p className={`text-2xl text-center font-semibold text-${color}-400`}>
+      <p
+        className={cn(
+          'text-2xl text-center font-semibold',
+          score >= 90
+            ? 'text-green-400'
+            : score < 50
+            ? 'text-red-400'
+            : 'text-orange-400'
+        )}
+      >
         {score}
       </p>
     </div>

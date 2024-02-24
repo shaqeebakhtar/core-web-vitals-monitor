@@ -16,7 +16,7 @@ const Monitors = () => {
       </div>
       <div className="mx-auto w-full max-w-screen-xl px-3 lg:px-20 flex flex-col space-y-4 py-4">
         <div className="flex h-10 w-full justify-end">
-          <div className="relative max-w-72 w-full">
+          <div className="relative md:max-w-72 w-full">
             <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4">
               <Search className="w-4 h-4 text-gray-400" />
             </div>
