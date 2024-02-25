@@ -1,5 +1,6 @@
-import type { Metadata } from 'next';
+import { Toaster } from '@/components/ui/sonner';
 import '@/styles/globals.css';
+import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import Providers from './providers';
 
@@ -22,7 +23,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Providers>
-        <body className={switzer.className}>{children}</body>
+        <body className={switzer.className}>
+          {children}
+          <Toaster richColors closeButton />
+        </body>
       </Providers>
     </html>
   );

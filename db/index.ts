@@ -1,9 +1,13 @@
-import { drizzle } from 'drizzle-orm/mysql2';
-import { createConnection } from 'mysql2';
-import * as schema from './schema';
+import { PrismaClient } from '@prisma/client';
 
-const connection = createConnection({
-  uri: process.env.DATABASE_URL,
-});
+const prismaClientSingleton = () => {
+  return new PrismaClient();
+};
 
-export const db = drizzle(connection, { schema, mode: 'default' });
+declare global {
+  var db: undefined | ReturnType<typeof prismaClientSingleton>;
+}
+
+export const db = globalThis.db ?? prismaClientSingleton();
+
+if (process.env.NODE_ENV !== 'production') globalThis.db = db;

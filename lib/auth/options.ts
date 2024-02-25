@@ -1,7 +1,6 @@
 import { db } from '@/db';
 import { getUserByEmail } from '@/services/user';
-import { DrizzleAdapter } from '@auth/drizzle-adapter';
-import { mysqlTable } from 'drizzle-orm/mysql-core';
+import { PrismaAdapter } from '@auth/prisma-adapter';
 import { AuthOptions } from 'next-auth';
 import { Adapter } from 'next-auth/adapters';
 import CredentialsProvider from 'next-auth/providers/credentials';
@@ -9,7 +8,7 @@ import GoogleProvider from 'next-auth/providers/google';
 import { hash } from '../hash';
 
 export const authOptions: AuthOptions = {
-  adapter: DrizzleAdapter(db, mysqlTable) as Adapter,
+  adapter: PrismaAdapter(db) as Adapter,
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
@@ -26,7 +25,7 @@ export const authOptions: AuthOptions = {
 
         const hashedPassword = await hash(credentials?.password as string);
 
-        if (!user) {
+        if (!user || user.password !== hashedPassword) {
           return null;
         }
 
