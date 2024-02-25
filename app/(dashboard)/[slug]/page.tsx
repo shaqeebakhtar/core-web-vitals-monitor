@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Search } from 'lucide-react';
+import { ActivitySquare, Search } from 'lucide-react';
 import MonitorCard from './_components/monitor-card';
 
 const Monitors = () => {
@@ -10,7 +10,10 @@ const Monitors = () => {
         <div className="mx-auto w-full max-w-screen-xl px-3 lg:px-20">
           <div className="flex items-center justify-between">
             <h1 className="text-2xl">Monitors</h1>
-            <Button>Create monitor</Button>
+            <Button>
+              <ActivitySquare className="w-4 h-4 mr-2" />
+              Create monitor
+            </Button>
           </div>
         </div>
       </div>

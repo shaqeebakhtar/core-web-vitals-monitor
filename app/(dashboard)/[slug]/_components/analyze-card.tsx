@@ -1,38 +1,29 @@
-import { Clock, Laptop2, Smartphone } from 'lucide-react';
+import { Laptop2, Smartphone } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
 import ScoreGauge from './score-gauge';
 import MetricIcon from './metric-icon';
 import FormFactorIcon from './form-factor-icon';
 
-const MonitorCard = () => {
+const AnalyzeCard = () => {
   return (
     <div className="border shadow hover:shadow-md rounded-lg bg-white">
       <div className="flex items-center justify-between p-3 sm:p-4">
         <div>
           <div className="flex max-w-fit items-center gap-x-2">
-            <p className="max-w-[160px] truncate font-medium sm:max-w-[180px] md:max-w-[200px] xl:max-w-[300px]">
-              Portfolio Landing page
-            </p>
-            <FormFactorIcon factor="mobile" />
-            <div className="hidden lg:inline-flex py-0.5 px-1 rounded border space-x-1  items-center bg-gray-100">
-              <Clock className="w-3 h-3 text-gray-700" />
-              <p className="text-xs text-gray-700 font-medium tracking-wide">
-                Daily
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center space-x-1">
-            <p className="whitespace-nowrap text-sm text-gray-500">Jan 13</p>
-            <p>•</p>
             <Link
               href={'/'}
               target="_blank"
               rel="noopener noreferrer"
-              className="max-w-[180px] truncate text-sm text-gray-700 underline-offset-2 hover:underline md:max-w-[260px] xl:max-w-[400px]"
+              className="max-w-[260px] truncate font-medium underline-offset-2 hover:underline sm:max-w-[460px] md:max-w-[540px] xl:max-w-[640px]"
             >
               https://lucide.dev/icons/?search=phone
             </Link>
+          </div>
+          <div className="flex items-center space-x-1">
+            <p className="whitespace-nowrap text-sm text-gray-500">Jan 13</p>
+            <p>•</p>
+            <FormFactorIcon factor="desktop" />
           </div>
         </div>
         <ScoreGauge score={55} />
@@ -64,4 +55,4 @@ const MonitorCard = () => {
   );
 };
 
-export default MonitorCard;
+export default AnalyzeCard;
