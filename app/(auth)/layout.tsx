@@ -1,3 +1,4 @@
+import Logo from '@/components/logo';
 import React from 'react';
 
 const AuthLayout = ({
@@ -9,7 +10,7 @@ const AuthLayout = ({
     <>
       <header>
         <div className="container py-4 px-4 md:px-8">
-          <h1 className="font-semibold">CWV Monitor</h1>
+          <Logo />
         </div>
       </header>
       <main className="grid place-items-center h-[calc(100vh-56px)]">

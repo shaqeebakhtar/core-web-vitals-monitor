@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button';
+import NewTestModal from '@/components/modals/new-test-modal';
 import {
   Select,
   SelectContent,
@@ -6,7 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Calendar, MonitorSmartphone } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 import AnalyzeCard from '../_components/analyze-card';
 
 const Analyze = () => {
@@ -16,10 +16,7 @@ const Analyze = () => {
         <div className="mx-auto w-full max-w-screen-xl px-3 lg:px-20">
           <div className="flex items-center justify-between">
             <h1 className="text-2xl">Analyze</h1>
-            <Button>
-              <MonitorSmartphone className="w-4 h-4 mr-2" />
-              New test
-            </Button>
+            <NewTestModal />
           </div>
         </div>
       </div>
