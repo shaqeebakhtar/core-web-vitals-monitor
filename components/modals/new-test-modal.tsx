@@ -30,6 +30,8 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { newTest } from '@/data-access/pagespeed-test';
 
 const NewTestModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -41,8 +43,17 @@ const NewTestModal = () => {
     },
   });
 
+  const newTestMutation = useMutation({
+    mutationFn: newTest,
+    onSuccess: (data) => {
+      console.log(data);
+    },
+  });
+
   function onSubmit(values: newTestSchemaType) {
-    console.log(values);
+    newTestMutation.mutate({
+      ...values,
+    });
   }
 
   return (

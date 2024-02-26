@@ -40,6 +40,14 @@ export const authOptions: AuthOptions = {
   pages: {
     signIn: '/login',
   },
+  events: {
+    async linkAccount({ user }) {
+      await db.user.update({
+        where: { id: user.id },
+        data: { emailVerified: new Date() },
+      });
+    },
+  },
   callbacks: {
     jwt: async ({ token }) => {
       const user = await getUserByEmail(token?.email as string);
