@@ -1,9 +1,9 @@
-import { Clock, Laptop2, Smartphone } from 'lucide-react';
+import { Clock } from 'lucide-react';
 import Link from 'next/link';
-import React from 'react';
-import ScoreGauge from './score-gauge';
-import MetricIcon from './metric-icon';
 import FormFactorIcon from './form-factor-icon';
+import MetricIcon from './metric-icon';
+import ScoreGauge from './score-gauge';
+import { Sparkline } from '@/components/charts/sparkline';
 
 const MonitorCard = () => {
   return (
@@ -35,8 +35,15 @@ const MonitorCard = () => {
             </Link>
           </div>
         </div>
-        <ScoreGauge score={55} />
+        <ScoreGauge score={96} />
       </div>
+      <Sparkline
+        className="h-20"
+        data={[null, null, null, 55, 47, 91, 78]}
+        fillOpacity={0.2}
+        color="#2563eb"
+        strokeWidth={1.5}
+      />
       <div className="border-t border-t-gray-200 flex divide-x divide-gray-200">
         <div className="flex-1 flex items-center justify-between p-3">
           <div className="space-x-1.5 flex items-center">

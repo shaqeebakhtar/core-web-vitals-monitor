@@ -1,13 +1,8 @@
 import { Toaster } from '@/components/ui/sonner';
 import '@/styles/globals.css';
+import { GeistSans } from 'geist/font/sans';
 import type { Metadata } from 'next';
-import localFont from 'next/font/local';
 import Providers from './providers';
-
-export const switzer = localFont({
-  src: '../styles/fonts/Switzer-Variable.woff2',
-  display: 'swap',
-});
 
 export const metadata: Metadata = {
   title: 'Core Web Vitals Monitor | Lighthouse Metrics',
@@ -23,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Providers>
-        <body className={switzer.className}>
+        <body className={GeistSans.className}>
           {children}
           <Toaster richColors closeButton />
         </body>

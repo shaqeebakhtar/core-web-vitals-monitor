@@ -19,7 +19,7 @@ const ScoreGauge = ({ score }: ScoreGaugeProps) => {
     >
       <p
         className={cn(
-          'text-2xl text-center font-semibold',
+          'text-2xl text-center font-semibold leading-none',
           score >= 90
             ? 'text-green-400'
             : score < 50

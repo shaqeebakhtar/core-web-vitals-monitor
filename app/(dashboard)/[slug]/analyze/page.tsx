@@ -20,7 +20,7 @@ const Analyze = () => {
           </div>
         </div>
       </div>
-      <div className="mx-auto w-full max-w-screen-xl px-3 lg:px-20 flex flex-col space-y-4 py-4 pb-12">
+      <div className="mx-auto w-full max-w-screen-xl px-3 lg:px-20 flex flex-col space-y-4 py-4 pb-20">
         <div className="flex h-10 w-full justify-end">
           <Select defaultValue="day">
             <SelectTrigger className="bg-white w-[200px]">
@@ -44,9 +44,6 @@ const Analyze = () => {
           </Select>
         </div>
         <div className="grid grid-cols-1 gap-4">
-          <AnalyzeCard />
-          <AnalyzeCard />
-          <AnalyzeCard />
           <AnalyzeCard />
           <AnalyzeCard />
           <AnalyzeCard />
