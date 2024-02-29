@@ -8,6 +8,7 @@ import {
 } from '@/components/ui/select';
 import { Calendar } from 'lucide-react';
 import AnalyzeCard from '../_components/analyze-card';
+import SearchInput from '../_components/search-input';
 
 const Analyze = () => {
   return (
@@ -21,9 +22,10 @@ const Analyze = () => {
         </div>
       </div>
       <div className="mx-auto w-full max-w-screen-xl px-3 lg:px-20 flex flex-col space-y-4 py-4 pb-20">
-        <div className="flex h-10 w-full justify-end">
+        <div className="flex flex-col sm:flex-row w-full items-center justify-end gap-3">
+          <SearchInput />
           <Select defaultValue="day">
-            <SelectTrigger className="bg-white w-[200px]">
+            <SelectTrigger className="bg-white w-full sm:w-[180px] h-10">
               <div className="flex items-center space-x-2">
                 <Calendar className="w-4 h-4" />
                 <SelectValue placeholder="Duration" />
@@ -44,9 +46,6 @@ const Analyze = () => {
           </Select>
         </div>
         <div className="grid grid-cols-1 gap-4">
-          <AnalyzeCard />
-          <AnalyzeCard />
-          <AnalyzeCard />
           <AnalyzeCard />
           <AnalyzeCard />
         </div>

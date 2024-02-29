@@ -38,12 +38,12 @@ model User {
   image         String?
   accounts      Account[]
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  Analyze   Analyze[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  analyses  Analysis[]
 }
 
-model Analyze {
+model Analysis {
   id     String @id @default(cuid())
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)

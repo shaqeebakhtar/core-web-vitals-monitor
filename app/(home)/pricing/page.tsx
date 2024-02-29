@@ -23,7 +23,7 @@ const Pricing = () => {
           </div>
           <Button
             variant={'outline'}
-            className="w-full rounded-full h-10 hover:bg-primary hover:text-white tracking-wider font-semibold"
+            className="w-full rounded-full h-10 hover:bg-primary hover:text-white font-semibold"
           >
             Start for free
           </Button>
@@ -54,7 +54,7 @@ const Pricing = () => {
             <p className="text-5xl font-semibold">$14</p>
             <p className="text-sm text-gray-500">/ month</p>
           </div>
-          <Button className="bg-blue-600 text-white w-full rounded-full h-10 hover:bg-blue-500 tracking-wider font-semibold">
+          <Button className="bg-blue-600 text-white w-full rounded-full h-10 hover:bg-blue-500 font-semibold">
             Get started with Pro
           </Button>
           <ul className="my-6 space-y-3">
@@ -89,7 +89,7 @@ const Pricing = () => {
             <p className="text-5xl font-semibold">$49</p>
             <p className="text-sm text-gray-500">/ month</p>
           </div>
-          <Button className="w-full rounded-full h-10 tracking-wider font-semibold">
+          <Button className="w-full rounded-full h-10 font-semibold">
             Get started with business
           </Button>
           <ul className="my-6 space-y-3">
