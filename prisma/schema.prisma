@@ -43,17 +43,6 @@ model User {
   analyses  Analysis[]
 }
 
-model Analysis {
-  id     String @id @default(cuid())
-  userId String
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  url    String
-  device String
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
 model VerificationToken {
   id      String   @id @default(cuid())
   email   String
@@ -61,4 +50,18 @@ model VerificationToken {
   expires DateTime
 
   @@unique([email, token])
+}
+
+model Analysis {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  url         String
+  device      String
+  requestedAt DateTime
+  metric      String
+  score       String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

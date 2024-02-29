@@ -1,9 +1,8 @@
-import { Laptop2, Smartphone } from 'lucide-react';
+import { Skeleton } from '@/components/ui/skeleton';
 import Link from 'next/link';
-import React from 'react';
-import ScoreGauge from './score-gauge';
-import MetricIcon from './metric-icon';
 import FormFactorIcon from './form-factor-icon';
+import MetricIcon from './metric-icon';
+import ScoreGauge from './score-gauge';
 
 const AnalyzeCard = () => {
   return (
@@ -56,3 +55,55 @@ const AnalyzeCard = () => {
 };
 
 export default AnalyzeCard;
+
+export const LoadingAnalyzeCard = () => {
+  return (
+    <>
+      <div className="border shadow hover:shadow-md rounded-lg bg-white pointer-events-none overflow-hidden">
+        <div className="w-full">
+          <div className="h-1 w-full bg-blue-100 overflow-hidden">
+            <div className="animate-infinite-progress w-full h-full bg-blue-600 origin-[0%_50%]"></div>
+          </div>
+        </div>
+        <div className="flex items-center justify-between p-3 sm:p-4">
+          <div>
+            <div className="flex max-w-fit items-center gap-x-2">
+              <p className="max-w-[260px] truncate font-medium underline-offset-2 hover:underline sm:max-w-[460px] md:max-w-[540px] xl:max-w-[640px] text-gray-400">
+                https://lucide.dev/icons/?search=phone
+              </p>
+            </div>
+            <div className="flex items-center space-x-1">
+              <p className="whitespace-nowrap text-sm text-gray-400">Jan 13</p>
+              <p>•</p>
+              <FormFactorIcon factor="desktop" className="opacity-50" />
+            </div>
+          </div>
+          <Skeleton className="rounded-full w-12 h-12" />
+        </div>
+        <div className="border-t border-t-gray-200 flex divide-x divide-gray-200">
+          <div className="flex-1 flex items-center justify-between p-3">
+            <div className="space-x-1.5 flex items-center">
+              <Skeleton className="rounded-full w-2 h-2" />
+              <p className="text-sm text-gray-400 font-medium">LCP</p>
+            </div>
+            <Skeleton className="w-14 h-4" />
+          </div>
+          <div className="flex-1 flex items-center justify-between p-3">
+            <div className="space-x-1.5 flex items-center">
+              <Skeleton className="rounded-full w-2 h-2" />
+              <p className="text-sm text-gray-400 font-medium">FID</p>
+            </div>
+            <Skeleton className="w-14 h-4" />
+          </div>
+          <div className="flex-1 flex items-center justify-between p-3">
+            <div className="space-x-1.5 flex items-center">
+              <Skeleton className="rounded-full w-2 h-2" />
+              <p className="text-sm text-gray-400 font-medium">CLS</p>
+            </div>
+            <Skeleton className="w-14 h-4" />
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};

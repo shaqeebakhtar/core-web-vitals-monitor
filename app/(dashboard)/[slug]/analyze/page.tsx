@@ -7,7 +7,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Calendar } from 'lucide-react';
-import AnalyzeCard from '../_components/analyze-card';
+import AnalyzeCard, { LoadingAnalyzeCard } from '../_components/analyze-card';
 import SearchInput from '../_components/search-input';
 
 const Analyze = () => {
@@ -46,6 +46,7 @@ const Analyze = () => {
           </Select>
         </div>
         <div className="grid grid-cols-1 gap-4">
+          <LoadingAnalyzeCard />
           <AnalyzeCard />
           <AnalyzeCard />
         </div>

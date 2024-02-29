@@ -1,13 +1,19 @@
+import { cn } from '@/lib/utils';
 import { Laptop2, Smartphone } from 'lucide-react';
 import React from 'react';
 
-type FormFactorIconProps = {
+interface FormFactorIconProps extends React.HTMLAttributes<HTMLDivElement> {
   factor: 'mobile' | 'desktop';
-};
+}
 
-const FormFactorIcon = ({ factor }: FormFactorIconProps) => {
+const FormFactorIcon = ({ factor, className }: FormFactorIconProps) => {
   return (
-    <div className="py-0.5 px-1 rounded border space-x-1 inline-flex items-center bg-gray-100">
+    <div
+      className={cn(
+        className,
+        'py-0.5 px-1 rounded border space-x-1 inline-flex items-center bg-gray-100'
+      )}
+    >
       {factor === 'mobile' && (
         <>
           <Smartphone className="w-3 h-3 text-gray-700" />
