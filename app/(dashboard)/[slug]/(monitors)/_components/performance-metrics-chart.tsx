@@ -18,7 +18,7 @@ const PerformanceMetricsChart = () => {
         </p>
       </div>
       <Tabs
-        defaultValue="account"
+        defaultValue="fcp"
         className="flex flex-col gap-6 md:flex-row md:gap-8"
       >
         <TabsList className="flex flex-col h-full gap-2">
