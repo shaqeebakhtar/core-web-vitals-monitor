@@ -41,6 +41,7 @@ model User {
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   analyses  Analysis[]
+  monitors  Monitor[]
 }
 
 model VerificationToken {
@@ -53,14 +54,32 @@ model VerificationToken {
 }
 
 model Analysis {
-  id          String   @id @default(cuid())
-  userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  url         String
-  device      String
-  requestedAt DateTime
-  metric      String
-  score       String
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  url       String
+  device    String
+  fetchedAt DateTime
+  metrics   String
+  scores    String
+  report    String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Monitor {
+  id             String   @id @default(cuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name           String
+  url            String
+  device         String
+  latestMetrics  String
+  latestScores   String
+  lastFetchedAt  DateTime
+  scoresHistory  String
+  metricsHistory String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

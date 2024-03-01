@@ -54,7 +54,7 @@ const MonitorReport = () => {
             </div>
           </div>
           <div className="space-y-0 p-4 border rounded-md bg-white">
-            <p className="text-sm text-gray-500">Last Monitor at</p>
+            <p className="text-sm text-gray-500">Last Monitored at</p>
             <p className="font-medium truncate max-w-fit">
               Feb 29, 2024, 2:28:38 AM
             </p>
