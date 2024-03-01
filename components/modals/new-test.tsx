@@ -31,7 +31,7 @@ import {
 } from '@/components/ui/select';
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import { newTest } from '@/data-access/pagespeed-test';
+import { newTest } from '@/data-access/analyze';
 
 const NewTestModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -64,7 +64,7 @@ const NewTestModal = () => {
           New test
         </Button>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="sm:p-8">
         <DialogHeader className="space-y-0.5 mb-3">
           <DialogTitle className="text-center md:text-left text-xl">
             Test new page
@@ -101,7 +101,7 @@ const NewTestModal = () => {
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Duration" />
+                        <SelectValue />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -121,7 +121,7 @@ const NewTestModal = () => {
               >
                 Cancel
               </Button>
-              <Button type="submit">Start Test</Button>
+              <Button type="submit">Start test</Button>
             </div>
           </form>
         </Form>

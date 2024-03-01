@@ -1,4 +1,4 @@
-import NewTestModal from '@/components/modals/new-test-modal';
+import NewTestModal from '@/components/modals/new-test';
 import {
   Select,
   SelectContent,
