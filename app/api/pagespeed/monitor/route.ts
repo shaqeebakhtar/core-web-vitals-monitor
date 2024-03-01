@@ -7,10 +7,12 @@ export const POST = async (req: Request) => {
   const session = await getServerSession(authOptions);
 
   if (!session || !session.user) {
-    return Response.json({
-      message: 'Unauthorized: Login required!',
-      status: 401,
-    });
+    return Response.json(
+      {
+        message: 'Unauthorized: Login required!',
+      },
+      { status: 401 }
+    );
   }
 
   const body = await req.json();
@@ -38,10 +40,12 @@ export const GET = async () => {
   const session = await getServerSession(authOptions);
 
   if (!session || !session.user) {
-    return Response.json({
-      message: 'Unauthorized: Login required!',
-      status: 401,
-    });
+    return Response.json(
+      {
+        message: 'Unauthorized: Login required!',
+      },
+      { status: 401 }
+    );
   }
 
   const monitors = await getAllMonitorsByUserId(session?.user.id as string);
