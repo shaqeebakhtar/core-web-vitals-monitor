@@ -33,7 +33,7 @@ export const POST = async (req: Request) => {
     userId: session?.user.id as string,
   });
 
-  return Response.json(monitor.id, { status: 200 });
+  return Response.json({ monitorId: monitor.id }, { status: 200 });
 };
 
 export const GET = async () => {
@@ -50,5 +50,5 @@ export const GET = async () => {
 
   const monitors = await getAllMonitorsByUserId(session?.user.id as string);
 
-  return Response.json(monitors, { status: 200 });
+  return Response.json({ monitors }, { status: 200 });
 };

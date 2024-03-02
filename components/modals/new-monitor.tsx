@@ -27,10 +27,11 @@ import {
 import { newMonitor } from '@/data-access/monitor';
 import { monitorSchema, monitorSchemaType } from '@/schemas/monitor';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation } from '@tanstack/react-query';
-import { ActivitySquare } from 'lucide-react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { ActivitySquare, Loader2 } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 const NewMonitorModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -45,10 +46,16 @@ const NewMonitorModal = () => {
     },
   });
 
+  const queryClient = useQueryClient();
+
   const newMonitorMutation = useMutation({
     mutationFn: newMonitor,
-    onSuccess: (data) => {
-      console.log(data);
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['monitors'] });
+      setIsModalOpen(false);
+    },
+    onError: (error) => {
+      toast.error(error.message);
     },
   });
 
@@ -82,6 +89,19 @@ const NewMonitorModal = () => {
           >
             <FormField
               control={newMonitorForm.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem className="space-y-1">
+                  <FormLabel>Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Acme monitoring - Mobile" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={newMonitorForm.control}
               name="url"
               render={({ field }) => (
                 <FormItem className="space-y-1">
@@ -111,7 +131,7 @@ const NewMonitorModal = () => {
                       </FormControl>
                       <SelectContent>
                         <SelectItem value="daily">Daily</SelectItem>
-                        <SelectItem value="hourly">hourly</SelectItem>
+                        <SelectItem value="hourly">Hourly</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -151,7 +171,12 @@ const NewMonitorModal = () => {
               >
                 Cancel
               </Button>
-              <Button type="submit">Start monitoring</Button>
+              <Button type="submit" disabled={newMonitorMutation.isPending}>
+                {newMonitorMutation.isPending && (
+                  <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                )}
+                Start monitoring
+              </Button>
             </div>
           </form>
         </Form>

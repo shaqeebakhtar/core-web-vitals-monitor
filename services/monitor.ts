@@ -20,13 +20,19 @@ export const createMonitor = async ({
   schedule,
   userId,
 }: createMonitor) => {
-  return await db.monitor.create({
-    data: {
-      name,
-      url,
-      device,
-      schedule,
-      userId,
-    },
-  });
+  try {
+    return await db.monitor.create({
+      data: {
+        name,
+        url,
+        device,
+        schedule,
+        userId,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+
+    throw new Error('Failed to create monitor');
+  }
 };

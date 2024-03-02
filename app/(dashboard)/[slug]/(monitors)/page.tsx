@@ -1,6 +1,11 @@
 import NewMonitorModal from '@/components/modals/new-monitor';
-import MonitorCard from '../_components/monitor-card';
 import SearchInput from '../_components/search-input';
+import MonitorCardsGrid from './_components/monitor-cards-grid';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Monitors | Core Web Vitals Monitor',
+};
 
 const Monitors = () => {
   return (
@@ -17,11 +22,7 @@ const Monitors = () => {
         <div className="flex h-10 w-full justify-end">
           <SearchInput />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <MonitorCard />
-          <MonitorCard />
-          <MonitorCard />
-        </div>
+        <MonitorCardsGrid />
       </div>
     </>
   );
