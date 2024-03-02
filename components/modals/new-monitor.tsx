@@ -28,7 +28,7 @@ import { newMonitor } from '@/data-access/monitor';
 import { monitorSchema, monitorSchemaType } from '@/schemas/monitor';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { ActivitySquare, Loader2 } from 'lucide-react';
+import { ActivitySquare, Loader } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -173,7 +173,7 @@ const NewMonitorModal = () => {
               </Button>
               <Button type="submit" disabled={newMonitorMutation.isPending}>
                 {newMonitorMutation.isPending && (
-                  <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                  <Loader className="w-4 h-4 animate-spin mr-2" />
                 )}
                 Start monitoring
               </Button>
