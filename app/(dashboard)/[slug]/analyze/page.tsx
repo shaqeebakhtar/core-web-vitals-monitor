@@ -9,8 +9,16 @@ import {
 import { Calendar } from 'lucide-react';
 import AnalyzeCard, { LoadingAnalyzeCard } from '../_components/analyze-card';
 import SearchInput from '../_components/search-input';
+import { getServerSession } from 'next-auth';
+import { redirect } from 'next/navigation';
 
-const Analyze = () => {
+const Analyze = async ({ params }: { params: { slug: string } }) => {
+  const session = await getServerSession();
+
+  if (!session || !session.user) {
+    redirect(`/login?next=/${params.slug}/analyze`);
+  }
+
   return (
     <>
       <div className="flex h-28 items-center border-b border-gray-200 bg-white">

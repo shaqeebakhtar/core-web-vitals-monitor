@@ -107,7 +107,7 @@ const NewMonitorModal = () => {
                 <FormItem className="space-y-1">
                   <FormLabel>URL</FormLabel>
                   <FormControl>
-                    <Input placeholder="https://cwvmonitor.com/" {...field} />
+                    <Input placeholder="https://acme.com/" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

@@ -16,6 +16,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Eye, EyeOff, Loader } from 'lucide-react';
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -23,9 +24,15 @@ const LoginForm = () => {
   const [isGoogleSignin, setIsGoogleSignin] = useState(false);
   const [isPasswordShow, setIsPasswordShow] = useState(false);
 
+  const searchParams = useSearchParams();
+
   const handleGoogleSignin = () => {
     setIsGoogleSignin(true);
-    signIn('google', { callbackUrl: '/' });
+    signIn('google', {
+      callbackUrl: searchParams.get('next')
+        ? (searchParams.get('next') as string)
+        : '/',
+    });
   };
 
   const loginForm = useForm<loginSchemaType>({

@@ -1,9 +1,4 @@
-'use client';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Calendar, Smartphone } from 'lucide-react';
-import Link from 'next/link';
-import { useParams } from 'next/navigation';
-import React from 'react';
 import {
   Select,
   SelectContent,
@@ -11,15 +6,27 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import PerformanceChart from '../../_components/performance-chart';
+import { ArrowLeft, Calendar, Smartphone } from 'lucide-react';
+import Link from 'next/link';
 import AccessibilityChart from '../../_components/accessibility-chart';
 import BestPracticesChart from '../../_components/best-practices-chart';
-import SeoChart from '../../_components/seo-chart';
-import PwaChart from '../../_components/pwa-chart';
+import PerformanceChart from '../../_components/performance-chart';
 import PerformanceMetricsChart from '../../_components/performance-metrics-chart';
+import PwaChart from '../../_components/pwa-chart';
+import SeoChart from '../../_components/seo-chart';
+import { getServerSession } from 'next-auth';
+import { redirect } from 'next/navigation';
 
-const MonitorReport = () => {
-  const { slug } = useParams() as { slug?: string };
+const MonitorReport = async ({
+  params,
+}: {
+  params: { slug: string; id: string };
+}) => {
+  const session = await getServerSession();
+
+  if (!session || !session.user) {
+    redirect(`/login?next=/${params.slug}/monitors/${params.id}`);
+  }
 
   return (
     <main>
@@ -28,7 +35,7 @@ const MonitorReport = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <Button asChild size={'icon'} variant={'outline'}>
-                <Link href={`/${slug}`}>
+                <Link href={`/${params.slug}`}>
                   <span className="sr-only">Go back</span>
                   <ArrowLeft className="w-4 h-4" />
                 </Link>

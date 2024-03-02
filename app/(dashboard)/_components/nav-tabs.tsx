@@ -9,6 +9,7 @@ const NavTabs = () => {
   const tabs = [
     { name: 'Monitors', href: `/${slug}` },
     { name: 'Analyze', href: `/${slug}/analyze` },
+    { name: 'Alerts', href: `/${slug}/alerts` },
     { name: 'Settings', href: `/${slug}/settings` },
   ];
 

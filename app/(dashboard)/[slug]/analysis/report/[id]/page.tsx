@@ -1,12 +1,19 @@
-'use client';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Smartphone } from 'lucide-react';
+import { getServerSession } from 'next-auth';
 import Link from 'next/link';
-import { useParams } from 'next/navigation';
-import React from 'react';
+import { redirect } from 'next/navigation';
 
-const ReportPage = () => {
-  const { slug } = useParams() as { slug?: string };
+const ReportPage = async ({
+  params,
+}: {
+  params: { slug: string; id: string };
+}) => {
+  const session = await getServerSession();
+
+  if (!session || !session.user) {
+    redirect(`/login?next=/${params.slug}/analysis/report/${params.id}`);
+  }
 
   return (
     <main>
@@ -15,7 +22,7 @@ const ReportPage = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <Button asChild size={'icon'} variant={'outline'}>
-                <Link href={`/${slug}/analyze`}>
+                <Link href={`/${params.slug}/analyze`}>
                   <span className="sr-only">Go back</span>
                   <ArrowLeft className="w-4 h-4" />
                 </Link>
