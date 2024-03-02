@@ -40,6 +40,7 @@ const MonitorCard = ({ monitor }: MonitorCardProps) => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="max-w-[180px] truncate text-sm text-gray-700 underline-offset-2 hover:underline md:max-w-[260px] xl:max-w-[400px]"
+                onClick={(e) => e.stopPropagation()}
               >
                 {monitor.url}
               </Link>

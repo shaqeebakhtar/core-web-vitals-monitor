@@ -16,7 +16,7 @@ const MonitorCardsGrid = () => {
     <>
       {monitorsQuery.isLoading ? (
         <MonitorCardsGridSkeleton />
-      ) : monitorsQuery.data.monitors.length === 0 ? (
+      ) : monitorsQuery.data?.monitors.length === 0 ? (
         <div className="mb-12 flex flex-col items-center justify-center rounded-md border border-gray-200 bg-white py-12 space-y-8">
           <h2 className="text-xl font-semibold text-gray-700">
             No monitors found.
@@ -31,7 +31,7 @@ const MonitorCardsGrid = () => {
         </div>
       ) : (
         !monitorsQuery.isLoading &&
-        monitorsQuery.data.monitors && (
+        monitorsQuery.data?.monitors && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {monitorsQuery.data.monitors.map((monitor: Monitor) => (
               <MonitorCard key={monitor.id} monitor={monitor} />
