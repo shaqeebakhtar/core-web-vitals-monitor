@@ -1,10 +1,10 @@
 'use client';
 import NewMonitorModal from '@/components/modals/new-monitor';
 import { getAllMonitors } from '@/data-access/monitor';
+import { Monitor } from '@prisma/client';
 import { useQuery } from '@tanstack/react-query';
 import Image from 'next/image';
 import MonitorCard, { MonitorCardSkeleton } from './monitor-card';
-import { Monitor } from '@prisma/client';
 
 const MonitorCardsGrid = () => {
   const monitorsQuery = useQuery({
