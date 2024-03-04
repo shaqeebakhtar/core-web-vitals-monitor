@@ -1,5 +1,10 @@
 import Link from 'next/link';
 import RegisterForm from '../_components/regiter-form';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Register | Core Web Vitals Monitor',
+}
 
 const Register = () => {
   return (

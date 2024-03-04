@@ -1,5 +1,10 @@
 import React from 'react';
 import OnboardingForm from '../_components/onboarding-form';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Onboarding | Core Web Vitals Monitor',
+};
 
 const Onboarding = () => {
   return (

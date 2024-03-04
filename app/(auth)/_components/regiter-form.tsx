@@ -16,7 +16,7 @@ import { registerSchema, registerSchemaType } from '@/schemas/register';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { Eye, EyeOff, Loader } from 'lucide-react';
-import { signIn } from 'next-auth/react';
+import { SignInResponse, signIn } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -25,6 +25,7 @@ import { toast } from 'sonner';
 
 const RegisterForm = () => {
   const [isGoogleSignin, setIsGoogleSignin] = useState(false);
+  const [isCredentialsRegister, setIsCredentialsRegister] = useState(false);
   const [isPasswordShow, setIsPasswordShow] = useState(false);
 
   const handleGoogleSignin = () => {
@@ -42,18 +43,24 @@ const RegisterForm = () => {
 
   const router = useRouter();
 
-  const registerMutation = useMutation({
-    mutationFn: register,
-    onSuccess: () => {
-      router.push('/onboarding');
-    },
-    onError: () => {
-      toast.error('Failed to create an account');
-    },
-  });
+  async function onSubmit(values: registerSchemaType) {
+    setIsCredentialsRegister(true);
+    const res = (await signIn('register', {
+      email: values.email,
+      password: values.password,
+      redirect: false,
+    })) as SignInResponse;
 
-  function onSubmit(values: registerSchemaType) {
-    registerMutation.mutate(values);
+    console.log(res);
+
+    if (!res.ok) {
+      setIsCredentialsRegister(false);
+      toast.error(res.error);
+    }
+
+    if (res.ok && !res.error) {
+      router.push('/onboarding');
+    }
   }
 
   return (
@@ -135,9 +142,9 @@ const RegisterForm = () => {
             type="submit"
             size={'lg'}
             className="w-full"
-            disabled={isGoogleSignin || registerMutation.isPending}
+            disabled={isGoogleSignin || isCredentialsRegister}
           >
-            {registerMutation.isPending && (
+            {isCredentialsRegister && (
               <Loader className="w-4 h-4 animate-spin mr-2" />
             )}
             Continue

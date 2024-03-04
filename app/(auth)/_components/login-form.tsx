@@ -47,7 +47,7 @@ const LoginForm = () => {
 
   async function onSubmit(values: loginSchemaType) {
     setIsCredentialsSignin(true);
-    const res = (await signIn('credentials', {
+    const res = (await signIn('login', {
       email: values.email,
       password: values.password,
       redirect: false,

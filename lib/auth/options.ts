@@ -1,5 +1,5 @@
 import { db } from '@/db';
-import { getUserByEmail } from '@/services/user';
+import { createUser, getUserByEmail } from '@/services/user';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import { AuthOptions } from 'next-auth';
 import { Adapter } from 'next-auth/adapters';
@@ -15,6 +15,7 @@ export const authOptions: AuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
     CredentialsProvider({
+      id: 'login',
       name: 'Credentials',
       credentials: {
         email: { label: 'Email', type: 'email', placeholder: 'jsmith' },
@@ -28,6 +29,30 @@ export const authOptions: AuthOptions = {
         if (!user || user.password !== hashedPassword) {
           return null;
         }
+
+        return user;
+      },
+    }),
+    CredentialsProvider({
+      id: 'register',
+      name: 'Credentials',
+      credentials: {
+        email: { label: 'Email', type: 'email', placeholder: 'jsmith' },
+        password: { label: 'Password', type: 'password' },
+      },
+      authorize: async (credentials) => {
+        const userExists = await getUserByEmail(credentials?.email as string);
+
+        if (userExists) {
+          throw new Error('Email already in use');
+        }
+
+        const hashedPassword = await hash(credentials?.password as string);
+
+        const user = await createUser({
+          email: credentials?.email as string,
+          password: hashedPassword,
+        });
 
         return user;
       },

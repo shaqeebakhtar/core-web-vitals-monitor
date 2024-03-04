@@ -1,5 +1,10 @@
 import React from 'react';
 import LoginForm from '../_components/login-form';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Login | Core Web Vitals Monitor',
+}
 
 const Login = () => {
   return (
