@@ -11,13 +11,17 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { register } from '@/data-access/auth';
 import { registerSchema, registerSchemaType } from '@/schemas/register';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
 import { Eye, EyeOff, Loader } from 'lucide-react';
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 const RegisterForm = () => {
   const [isGoogleSignin, setIsGoogleSignin] = useState(false);
@@ -25,7 +29,7 @@ const RegisterForm = () => {
 
   const handleGoogleSignin = () => {
     setIsGoogleSignin(true);
-    signIn('google');
+    signIn('google', { callbackUrl: '/onboarding' });
   };
 
   const registerForm = useForm<registerSchemaType>({
@@ -36,8 +40,20 @@ const RegisterForm = () => {
     },
   });
 
+  const router = useRouter();
+
+  const registerMutation = useMutation({
+    mutationFn: register,
+    onSuccess: () => {
+      router.push('/onboarding');
+    },
+    onError: () => {
+      toast.error('Failed to create an account');
+    },
+  });
+
   function onSubmit(values: registerSchemaType) {
-    console.log(values);
+    registerMutation.mutate(values);
   }
 
   return (
@@ -119,8 +135,11 @@ const RegisterForm = () => {
             type="submit"
             size={'lg'}
             className="w-full"
-            disabled={isGoogleSignin}
+            disabled={isGoogleSignin || registerMutation.isPending}
           >
+            {registerMutation.isPending && (
+              <Loader className="w-4 h-4 animate-spin mr-2" />
+            )}
             Continue
           </Button>
           <p className="text-sm text-muted-foreground">
