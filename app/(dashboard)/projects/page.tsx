@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
+import ProjectsClient from './_components/projects-client';
 
 export const metadata: Metadata = {
   title: 'Projects | Core Web Vitals Monitor',
@@ -13,7 +14,7 @@ const Projects = async () => {
     redirect(`/login?next=/projects`);
   }
 
-  return <div>Projects</div>;
+  return <ProjectsClient />;
 };
 
 export default Projects;

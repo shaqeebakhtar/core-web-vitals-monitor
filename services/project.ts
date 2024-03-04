@@ -20,7 +20,7 @@ export const getProjectByUserId = async () => {
     },
   });
 
-  return project?.id;
+  return project;
 };
 
 export const createProject = async ({ name, slug }: onboardingSchemaType) => {
