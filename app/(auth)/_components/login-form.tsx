@@ -14,17 +14,20 @@ import { Input } from '@/components/ui/input';
 import { loginSchema, loginSchemaType } from '@/schemas/login';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Eye, EyeOff, Loader } from 'lucide-react';
-import { signIn } from 'next-auth/react';
+import { SignInResponse, signIn } from 'next-auth/react';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 
 const LoginForm = () => {
   const [isGoogleSignin, setIsGoogleSignin] = useState(false);
+  const [isCredentialsSignin, setIsCredentialsSignin] = useState(false);
   const [isPasswordShow, setIsPasswordShow] = useState(false);
 
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   const handleGoogleSignin = () => {
     setIsGoogleSignin(true);
@@ -42,8 +45,23 @@ const LoginForm = () => {
     },
   });
 
-  function onSubmit(values: loginSchemaType) {
-    console.log(values);
+  async function onSubmit(values: loginSchemaType) {
+    setIsCredentialsSignin(true);
+    const res = (await signIn('credentials', {
+      email: values.email,
+      password: values.password,
+      redirect: false,
+    })) as SignInResponse;
+
+    if (!res.ok) {
+      setIsCredentialsSignin(false);
+      toast.error('Either email or password is incorrect.');
+    }
+    if (res.ok && !res.error) {
+      router.push(
+        searchParams.get('next') ? (searchParams.get('next') as string) : '/'
+      );
+    }
   }
 
   return (
@@ -130,8 +148,11 @@ const LoginForm = () => {
             type="submit"
             size={'lg'}
             className="w-full"
-            disabled={isGoogleSignin}
+            disabled={isGoogleSignin || isCredentialsSignin}
           >
+            {isCredentialsSignin && (
+              <Loader className="w-4 h-4 animate-spin mr-2" />
+            )}
             Log In
           </Button>
           <p className="text-sm text-muted-foreground">
