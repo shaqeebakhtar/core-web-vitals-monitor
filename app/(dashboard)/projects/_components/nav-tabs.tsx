@@ -7,17 +7,18 @@ const NavTabs = () => {
   const pathname = usePathname();
   const { slug } = useParams() as { slug?: string };
   const tabs = [
-    { name: 'Monitors', href: `/${slug}` },
-    { name: 'Analyze', href: `/${slug}/analyze` },
-    { name: 'Alerts', href: `/${slug}/alerts` },
-    { name: 'Settings', href: `/${slug}/settings` },
+    { name: 'Monitors', href: `/projects/${slug}` },
+    { name: 'Analyze', href: `/projects/${slug}/analyze` },
+    { name: 'Alerts', href: `/projects/${slug}/alerts` },
+    { name: 'Settings', href: `/projects/${slug}/settings` },
   ];
 
   const isAnalyzeTab =
-    pathname.startsWith(`/${slug}/analyze`) ||
-    pathname.startsWith(`/${slug}/analysis/report/`);
+    pathname.startsWith(`/projects/${slug}/analyze`) ||
+    pathname.startsWith(`/projects/${slug}/analysis/report/`);
   const isMonitorsTab =
-    pathname.startsWith(`/${slug}/monitors`) || pathname.endsWith(`/${slug}`);
+    pathname.startsWith(`/projects/${slug}/monitors`) ||
+    pathname.endsWith(`/projects/${slug}`);
 
   return (
     <nav className="flex h-12 items-center space-x-1">

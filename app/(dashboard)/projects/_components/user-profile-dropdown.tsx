@@ -24,8 +24,8 @@ const UserProfileDropdown = () => {
   const [avatar, setAvatar] = useState<ReactNode>('');
 
   useEffect(() => {
-    if (session?.user?.name) {
-      const generatedAvatar = generateAvatar(session.user.name);
+    if (session?.user?.email) {
+      const generatedAvatar = generateAvatar(session.user.email as string);
       setAvatar(generatedAvatar);
     }
   }, [session]);
@@ -49,13 +49,13 @@ const UserProfileDropdown = () => {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <Link href={`/${slug}/support`}>
+          <Link href={`/projects/${slug}/support`}>
             <DropdownMenuItem>
               <MessageCircleQuestion className="w-4 h-4 mr-2 text-gray-700" />
               <span className="font-normal">Support</span>
             </DropdownMenuItem>
           </Link>
-          <Link href={`/${slug}/settings`}>
+          <Link href={`/projects/${slug}/settings`}>
             <DropdownMenuItem>
               <Settings className="w-4 h-4 mr-2 text-gray-700" />
               <span className="font-normal">Settings</span>

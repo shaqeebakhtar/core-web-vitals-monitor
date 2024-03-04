@@ -34,7 +34,7 @@ const LoginForm = () => {
     signIn('google', {
       callbackUrl: searchParams.get('next')
         ? (searchParams.get('next') as string)
-        : '/',
+        : '/projects',
     });
   };
 
@@ -60,7 +60,9 @@ const LoginForm = () => {
     }
     if (res.ok && !res.error) {
       router.push(
-        searchParams.get('next') ? (searchParams.get('next') as string) : '/'
+        searchParams.get('next')
+          ? (searchParams.get('next') as string)
+          : '/projects'
       );
     }
   }

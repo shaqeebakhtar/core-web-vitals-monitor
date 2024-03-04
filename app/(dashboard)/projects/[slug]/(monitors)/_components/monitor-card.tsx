@@ -19,7 +19,7 @@ const MonitorCard = ({ monitor }: MonitorCardProps) => {
   return (
     <div
       className="border shadow hover:shadow-md rounded-lg bg-white cursor-pointer"
-      onClick={() => router.push(`/${slug}/monitors/${monitor.id}`)}
+      onClick={() => router.push(`/projects/${slug}/monitors/${monitor.id}`)}
     >
       <div className="flex items-center justify-between p-3 sm:p-4">
         <div>

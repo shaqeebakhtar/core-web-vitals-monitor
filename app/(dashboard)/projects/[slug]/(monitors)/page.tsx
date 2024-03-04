@@ -13,7 +13,7 @@ const Monitors = async ({ params }: { params: { slug: string } }) => {
   const session = await getServerSession();
 
   if (!session || !session.user) {
-    redirect(`/login?next=/${params.slug}`);
+    redirect(`/login?next=/projects/${params.slug}`);
   }
 
   return (

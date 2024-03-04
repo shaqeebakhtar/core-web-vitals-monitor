@@ -12,7 +12,9 @@ const ReportPage = async ({
   const session = await getServerSession();
 
   if (!session || !session.user) {
-    redirect(`/login?next=/${params.slug}/analysis/report/${params.id}`);
+    redirect(
+      `/login?next=/projects/${params.slug}/analysis/report/${params.id}`
+    );
   }
 
   return (

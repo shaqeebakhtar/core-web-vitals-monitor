@@ -21,7 +21,7 @@ const OnboardingForm = () => {
   const onboardingMutation = useMutation({
     mutationFn: onboarding,
     onSuccess: () => {
-      router.push(`/${slug}`);
+      router.push('/projects');
       setIsCreatingProject(false);
     },
     onError: (error) => {

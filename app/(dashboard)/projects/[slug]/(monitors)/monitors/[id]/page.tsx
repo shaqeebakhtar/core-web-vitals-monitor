@@ -25,7 +25,7 @@ const MonitorReport = async ({
   const session = await getServerSession();
 
   if (!session || !session.user) {
-    redirect(`/login?next=/${params.slug}/monitors/${params.id}`);
+    redirect(`/login?next=/projects/${params.slug}/monitors/${params.id}`);
   }
 
   return (

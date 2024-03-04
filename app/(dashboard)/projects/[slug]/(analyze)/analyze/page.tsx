@@ -7,16 +7,19 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Calendar } from 'lucide-react';
-import AnalyzeCard, { LoadingAnalyzeCard } from '../_components/analyze-card';
-import SearchInput from '../_components/search-input';
+
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
+import SearchInput from '../../_components/search-input';
+import AnalyzeCard, {
+  LoadingAnalyzeCard,
+} from '../../_components/analyze-card';
 
 const Analyze = async ({ params }: { params: { slug: string } }) => {
   const session = await getServerSession();
 
   if (!session || !session.user) {
-    redirect(`/login?next=/${params.slug}/analyze`);
+    redirect(`/login?next=/projects/${params.slug}/analyze`);
   }
 
   return (

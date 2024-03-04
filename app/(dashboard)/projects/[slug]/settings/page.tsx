@@ -5,7 +5,7 @@ const Settings = async ({ params }: { params: { slug: string } }) => {
   const session = await getServerSession();
 
   if (!session || !session.user) {
-    redirect(`/login?next=/${params.slug}/settings`);
+    redirect(`/login?next=/projects/${params.slug}/settings`);
   }
 
   return <div>Settings</div>;

@@ -1,12 +1,20 @@
-import Link from 'next/link';
-import RegisterForm from '../_components/regiter-form';
 import { Metadata } from 'next';
+import { getServerSession } from 'next-auth';
+import Link from 'next/link';
+import { redirect } from 'next/navigation';
+import RegisterForm from '../_components/regiter-form';
 
 export const metadata: Metadata = {
   title: 'Register | Core Web Vitals Monitor',
-}
+};
 
-const Register = () => {
+const Register = async () => {
+  const session = await getServerSession();
+
+  if (session && session?.user) {
+    redirect('/projects');
+  }
+
   return (
     <>
       <h1 className="font-semibold text-2xl md:text-3xl text-center">
