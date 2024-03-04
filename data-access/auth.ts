@@ -34,8 +34,6 @@ export const onboarding = async ({ name, slug }: onboardingSchemaType) => {
     }),
   });
 
-  console.log(res);
-
   if (res.status === 400) {
     throw new Error('Slug is already taken');
   } else if (res.status === 403) {

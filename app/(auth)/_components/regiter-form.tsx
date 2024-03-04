@@ -49,7 +49,6 @@ const RegisterForm = () => {
       redirect: false,
     })) as SignInResponse;
 
-    console.log(res);
 
     if (!res.ok) {
       setIsCredentialsRegister(false);
