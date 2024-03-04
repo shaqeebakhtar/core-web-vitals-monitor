@@ -42,6 +42,7 @@ const LoginForm = () => {
     resolver: zodResolver(loginSchema),
     defaultValues: {
       email: '',
+      password: '',
     },
   });
 
@@ -97,7 +98,12 @@ const LoginForm = () => {
               <FormItem className="space-y-1">
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input placeholder="john@example.com" {...field} />
+                  <Input
+                    placeholder="john@example.com"
+                    {...field}
+                    type="email"
+                    required
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -115,6 +121,7 @@ const LoginForm = () => {
                       placeholder="********"
                       type={isPasswordShow ? 'text' : 'password'}
                       {...field}
+                      required
                     />
                     <Button
                       type="button"

@@ -1,12 +1,18 @@
 import React from 'react';
 import OnboardingForm from '../_components/onboarding-form';
 import { Metadata } from 'next';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth/options';
 
 export const metadata: Metadata = {
   title: 'Onboarding | Core Web Vitals Monitor',
 };
 
-const Onboarding = () => {
+const Onboarding = async () => {
+  const session = await getServerSession(authOptions);
+
+  console.log(session);
+
   return (
     <>
       <div className="space-y-1 text-center">

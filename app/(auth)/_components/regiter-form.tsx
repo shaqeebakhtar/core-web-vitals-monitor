@@ -11,10 +11,8 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { register } from '@/data-access/auth';
 import { registerSchema, registerSchemaType } from '@/schemas/register';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation } from '@tanstack/react-query';
 import { Eye, EyeOff, Loader } from 'lucide-react';
 import { SignInResponse, signIn } from 'next-auth/react';
 import Link from 'next/link';
@@ -99,7 +97,12 @@ const RegisterForm = () => {
               <FormItem className="space-y-1">
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input placeholder="john@example.com" {...field} />
+                  <Input
+                    placeholder="john@example.com"
+                    {...field}
+                    type="email"
+                    required
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -117,6 +120,7 @@ const RegisterForm = () => {
                       placeholder="********"
                       type={isPasswordShow ? 'text' : 'password'}
                       {...field}
+                      required
                     />
                     <Button
                       type="button"

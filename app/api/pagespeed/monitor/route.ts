@@ -1,6 +1,6 @@
 import { authOptions } from '@/lib/auth/options';
 import { monitorSchema } from '@/schemas/monitor';
-import { createMonitor, getAllMonitorsByUserId } from '@/services/monitor';
+import { createMonitor, getAllMonitorsByProjectId } from '@/services/monitor';
 import { getServerSession } from 'next-auth';
 
 export const POST = async (req: Request) => {
@@ -30,7 +30,6 @@ export const POST = async (req: Request) => {
     url,
     device,
     schedule,
-    userId: session?.user.id as string,
   });
 
   return Response.json({ monitorId: monitor.id }, { status: 200 });
@@ -48,7 +47,7 @@ export const GET = async () => {
     );
   }
 
-  const monitors = await getAllMonitorsByUserId(session?.user.id as string);
+  const monitors = await getAllMonitorsByProjectId();
 
   return Response.json({ monitors }, { status: 200 });
 };

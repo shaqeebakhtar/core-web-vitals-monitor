@@ -1,14 +1,17 @@
 import { db } from '@/db';
 import { monitorSchemaType } from '@/schemas/monitor';
+import { getProjectByUserId } from './project';
 
 interface createMonitor extends monitorSchemaType {
-  userId: string;
+  projectId: string;
 }
 
-export const getAllMonitorsByUserId = async (userId: string) => {
+export const getAllMonitorsByProjectId = async () => {
+  const projectId = (await getProjectByUserId()) as string;
+
   return await db.monitor.findMany({
     where: {
-      userId,
+      projectId,
     },
   });
 };
@@ -18,8 +21,9 @@ export const createMonitor = async ({
   url,
   device,
   schedule,
-  userId,
-}: createMonitor) => {
+}: monitorSchemaType) => {
+  const projectId = (await getProjectByUserId()) as string;
+
   try {
     return await db.monitor.create({
       data: {
@@ -27,7 +31,7 @@ export const createMonitor = async ({
         url,
         device,
         schedule,
-        userId,
+        projectId,
       },
     });
   } catch (error) {

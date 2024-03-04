@@ -3,16 +3,45 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { FormEvent, useState } from 'react';
+import { onboarding } from '@/data-access/auth';
 import slugify from '@sindresorhus/slugify';
+import { useMutation } from '@tanstack/react-query';
+import { Loader } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { FormEvent, useState } from 'react';
+import { toast } from 'sonner';
 
 const OnboardingForm = () => {
   const [name, setName] = useState('');
   const [slug, setSlug] = useState('');
+  const [isCreatingProject, setIsCreatingProject] = useState(false);
+
+  const router = useRouter();
+
+  const onboardingMutation = useMutation({
+    mutationFn: onboarding,
+    onSuccess: () => {
+      router.push(`/${slug}`);
+      setIsCreatingProject(false);
+    },
+    onError: (error) => {
+      toast.error(error.message);
+      setIsCreatingProject(false);
+    },
+  });
 
   const hanldeSubmit = (e: FormEvent) => {
     e.preventDefault();
-    console.log(name, slug);
+    if (name === '') {
+      toast.error('Project name is required');
+      return;
+    } else if (slug === '') {
+      toast.error('Project slug is required');
+      return;
+    }
+
+    setIsCreatingProject(true);
+    onboardingMutation.mutate({ name, slug });
   };
 
   return (
@@ -48,7 +77,16 @@ const OnboardingForm = () => {
           </div>
         </div>
 
-        <Button type="submit" size={'lg'} className="w-full">
+        <Button
+          type="submit"
+          size={'lg'}
+          className="w-full"
+          disabled={onboardingMutation.isPending || isCreatingProject}
+        >
+          {onboardingMutation.isPending ||
+            (isCreatingProject && (
+              <Loader className="w-4 h-4 animate-spin mr-2" />
+            ))}
           Get started
         </Button>
       </form>
