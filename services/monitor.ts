@@ -1,17 +1,17 @@
 import { db } from '@/db';
 import { monitorSchemaType } from '@/schemas/monitor';
 import { getProjectByUserId } from './project';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/auth/options';
 
 interface createMonitor extends monitorSchemaType {
   projectId: string;
 }
 
-export const getAllMonitorsByProjectId = async () => {
-  const project = await getProjectByUserId();
-
+export const getAllMonitorsByProjectId = async (projectId: string) => {
   return await db.monitor.findMany({
     where: {
-      projectId: project?.id,
+      projectId,
     },
   });
 };

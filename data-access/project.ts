@@ -5,5 +5,5 @@ export const getProject = async () => {
     throw new Error('Unauthorized: Login required!');
   }
 
-  return res.json();
+  return await res.json();
 };

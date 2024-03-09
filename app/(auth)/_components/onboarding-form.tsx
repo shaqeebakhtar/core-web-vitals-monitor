@@ -83,10 +83,9 @@ const OnboardingForm = () => {
           className="w-full"
           disabled={onboardingMutation.isPending || isCreatingProject}
         >
-          {onboardingMutation.isPending ||
-            (isCreatingProject && (
-              <Loader className="w-4 h-4 animate-spin mr-2" />
-            ))}
+          {(onboardingMutation.isPending || isCreatingProject) && (
+            <Loader className="w-4 h-4 animate-spin mr-2" />
+          )}
           Get started
         </Button>
       </form>

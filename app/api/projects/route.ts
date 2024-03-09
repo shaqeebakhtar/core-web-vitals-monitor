@@ -4,6 +4,7 @@ import { getServerSession } from 'next-auth';
 
 export const GET = async (req: Request) => {
   const session = await getServerSession(authOptions);
+
   if (!session || !session.user) {
     return Response.json(
       {
@@ -15,5 +16,5 @@ export const GET = async (req: Request) => {
 
   const project = await getProjectByUserId();
 
-  return Response.json({ project }, { status: 200 });
+  return Response.json(project, { status: 200 });
 };

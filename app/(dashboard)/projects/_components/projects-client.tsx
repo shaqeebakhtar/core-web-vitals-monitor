@@ -12,9 +12,13 @@ const ProjectsClient = () => {
 
   const router = useRouter();
 
-  if (!projectsQuery.isLoading && projectsQuery.data.project) {
-    const slug = projectsQuery.data.project.slug;
+  if (!projectsQuery.isLoading && projectsQuery.data) {
+    const slug = projectsQuery.data.slug;
     router.push(`/projects/${slug}`);
+  }
+
+  if (!projectsQuery.isLoading && !projectsQuery.data) {
+    router.push('/onboarding');
   }
 
   return (

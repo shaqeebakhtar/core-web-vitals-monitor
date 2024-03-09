@@ -1,6 +1,6 @@
 import { authOptions } from '@/lib/auth/options';
 import { monitorSchema } from '@/schemas/monitor';
-import { createMonitor, getAllMonitorsByProjectId } from '@/services/monitor';
+import { createMonitor } from '@/services/monitor';
 import { getServerSession } from 'next-auth';
 
 export const POST = async (req: Request) => {
@@ -33,21 +33,4 @@ export const POST = async (req: Request) => {
   });
 
   return Response.json({ monitorId: monitor.id }, { status: 200 });
-};
-
-export const GET = async () => {
-  const session = await getServerSession(authOptions);
-
-  if (!session || !session.user) {
-    return Response.json(
-      {
-        message: 'Unauthorized: Login required!',
-      },
-      { status: 401 }
-    );
-  }
-
-  const monitors = await getAllMonitorsByProjectId();
-
-  return Response.json({ monitors }, { status: 200 });
 };

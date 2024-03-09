@@ -4,9 +4,12 @@ import { onboardingSchemaType } from '@/schemas/onboarding';
 import { getServerSession } from 'next-auth';
 
 export const getProjectBySlug = async (slug: string) => {
+  const session = await getServerSession(authOptions);
+
   return await db.project.findUnique({
     where: {
       slug,
+      userId: session?.user.id as string,
     },
   });
 };
