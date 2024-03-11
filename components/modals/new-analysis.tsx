@@ -18,9 +18,12 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { newTestSchema, newTestSchemaType } from '@/schemas/new-test';
+import {
+  newAnalysisSchema,
+  newAnalysisSchemaType,
+} from '@/schemas/new-analysis';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { MonitorSmartphone } from 'lucide-react';
+import { Loader, MonitorSmartphone } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import {
   Select,
@@ -31,29 +34,34 @@ import {
 } from '@/components/ui/select';
 import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import { newTest } from '@/data-access/analyze';
+import { newAnalysis } from '@/data-access/analyze';
+import { toast } from 'sonner';
 
-const NewTestModal = () => {
+const NewAnalysisModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const newTestForm = useForm<newTestSchemaType>({
-    resolver: zodResolver(newTestSchema),
+  const newAnalysisForm = useForm<newAnalysisSchemaType>({
+    resolver: zodResolver(newAnalysisSchema),
     defaultValues: {
       url: '',
       device: 'mobile',
     },
   });
 
-  const newTestMutation = useMutation({
-    mutationFn: newTest,
-    onSuccess: (data) => {
-      console.log(data);
+  const newAnalysisMutation = useMutation({
+    mutationFn: newAnalysis,
+    onSuccess: () => {
+      toast.success('Your analysis report is ready!');
+    },
+    onError: (error) => {
+      toast.error(error.message);
     },
   });
 
-  function onSubmit(values: newTestSchemaType) {
-    newTestMutation.mutate({
+  function onSubmit(values: newAnalysisSchemaType) {
+    newAnalysisMutation.mutate({
       ...values,
     });
+    setIsModalOpen(false);
   }
 
   return (
@@ -61,23 +69,25 @@ const NewTestModal = () => {
       <DialogTrigger asChild>
         <Button>
           <MonitorSmartphone className="w-4 h-4 mr-2" />
-          New test
+          New Analysis
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:p-8">
         <DialogHeader className="space-y-0.5 mb-3">
           <DialogTitle className="text-center md:text-left text-xl">
-            Test new page
+            Analyze new page
           </DialogTitle>
-          <DialogDescription>Run a manual lighthouse test.</DialogDescription>
+          <DialogDescription>
+            Run a manual lighthouse analysis.
+          </DialogDescription>
         </DialogHeader>
-        <Form {...newTestForm}>
+        <Form {...newAnalysisForm}>
           <form
-            onSubmit={newTestForm.handleSubmit(onSubmit)}
+            onSubmit={newAnalysisForm.handleSubmit(onSubmit)}
             className="space-y-4"
           >
             <FormField
-              control={newTestForm.control}
+              control={newAnalysisForm.control}
               name="url"
               render={({ field }) => (
                 <FormItem className="space-y-1">
@@ -90,7 +100,7 @@ const NewTestModal = () => {
               )}
             />
             <FormField
-              control={newTestForm.control}
+              control={newAnalysisForm.control}
               name="device"
               render={({ field }) => (
                 <FormItem className="space-y-1">
@@ -121,7 +131,12 @@ const NewTestModal = () => {
               >
                 Cancel
               </Button>
-              <Button type="submit">Start test</Button>
+              <Button type="submit" disabled={newAnalysisMutation.isPending}>
+                {newAnalysisMutation.isPending && (
+                  <Loader className="w-4 h-4 animate-spin mr-2" />
+                )}
+                Start analysis
+              </Button>
             </div>
           </form>
         </Form>
@@ -130,4 +145,4 @@ const NewTestModal = () => {
   );
 };
 
-export default NewTestModal;
+export default NewAnalysisModal;

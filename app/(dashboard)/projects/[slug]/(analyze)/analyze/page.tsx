@@ -1,4 +1,4 @@
-import NewTestModal from '@/components/modals/new-test';
+import NewAnalysisModal from '@/components/modals/new-analysis';
 import {
   Select,
   SelectContent,
@@ -14,6 +14,11 @@ import SearchInput from '../../_components/search-input';
 import AnalyzeCard, {
   LoadingAnalyzeCard,
 } from '../../_components/analyze-card';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Analyze | Core Web Vitals Monitor',
+};
 
 const Analyze = async ({ params }: { params: { slug: string } }) => {
   const session = await getServerSession();
@@ -28,7 +33,7 @@ const Analyze = async ({ params }: { params: { slug: string } }) => {
         <div className="mx-auto w-full max-w-screen-xl px-3 lg:px-20">
           <div className="flex items-center justify-between">
             <h1 className="text-2xl">Analyze</h1>
-            <NewTestModal />
+            <NewAnalysisModal />
           </div>
         </div>
       </div>

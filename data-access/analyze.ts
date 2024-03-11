@@ -1,6 +1,6 @@
-import { newTestSchemaType } from '@/schemas/new-test';
+import { newAnalysisSchemaType } from '@/schemas/new-analysis';
 
-export const newTest = async ({ url, device }: newTestSchemaType) => {
+export const newAnalysis = async ({ url, device }: newAnalysisSchemaType) => {
   const res = await fetch('/api/pagespeed/analyze', {
     method: 'POST',
     headers: {

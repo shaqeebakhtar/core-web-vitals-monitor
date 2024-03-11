@@ -1,15 +1,15 @@
-import { newTestSchemaType } from '@/schemas/new-test';
+import { newAnalysisSchemaType } from '@/schemas/new-analysis';
 
 export const getPagespeedResult = async ({
   url,
   device,
-}: newTestSchemaType) => {
+}: newAnalysisSchemaType) => {
   return await fetch(
     `${process.env.PAGESPEEDINSIGHTS_API_ENDPOINT}?category=ACCESSIBILITY&category=BEST_PRACTICES&category=PERFORMANCE&category=SEO&category=PWA&key=${process.env.GOOGLE_CLOUD_API_KEY}&url=${url}&strategy=${device}`
   ).then((res) => res.json());
 };
 
-export const getCruxResult = async ({ url, device }: newTestSchemaType) => {
+export const getCruxResult = async ({ url, device }: newAnalysisSchemaType) => {
   const formFactor = device === 'mobile' ? 'phone' : device;
 
   return await fetch(

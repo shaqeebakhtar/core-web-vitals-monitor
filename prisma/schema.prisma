@@ -74,9 +74,9 @@ model Analysis {
   url       String
   device    Device
   fetchedAt DateTime
-  metrics   String
-  scores    String
-  report    String
+  metrics   String   @db.Text
+  scores    String   @db.Text
+  report    String?  @db.Text
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -90,11 +90,11 @@ model Monitor {
   url            String
   device         Device
   schedule       Schedule
-  latestMetrics  String?
-  latestScores   String?
+  latestMetrics  String?   @db.Text
+  latestScores   String?   @db.Text
   lastFetchedAt  DateTime?
-  scoresHistory  String?
-  metricsHistory String?
+  scoresHistory  String?   @db.Text
+  metricsHistory String?   @db.Text
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
