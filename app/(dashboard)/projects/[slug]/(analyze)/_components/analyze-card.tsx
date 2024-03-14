@@ -10,6 +10,11 @@ type AnalyzeCardProps = {
 };
 
 const AnalyzeCard = ({ analysis }: AnalyzeCardProps) => {
+  const metrics = JSON.parse(analysis.metrics);
+  const scores = JSON.parse(analysis.scores);
+
+  console.log(analysis.url, metrics);
+
   return (
     <div className="border shadow hover:shadow-md rounded-lg bg-white">
       <div className="flex items-center justify-between p-3 sm:p-4">
@@ -30,29 +35,39 @@ const AnalyzeCard = ({ analysis }: AnalyzeCardProps) => {
             <FormFactorIcon factor={analysis.device} />
           </div>
         </div>
-        <ScoreGauge score={55} />
+        <ScoreGauge score={scores.performance.score * 100} />
       </div>
       <div className="border-t border-t-gray-200 flex divide-x divide-gray-200">
         <div className="flex-1 flex items-center justify-between p-3">
           <div className="space-x-1.5 flex items-center">
-            <MetricIcon icon={'pass'} />
+            <MetricIcon
+              score={metrics['largest-contentful-paint'].score * 100}
+            />
             <p className="text-sm text-gray-700 font-medium">LCP</p>
           </div>
-          <p className="text-sm text-gray-500">880 ms</p>
+          <p className="text-sm text-gray-500">
+            {metrics['largest-contentful-paint'].displayValue}
+          </p>
         </div>
         <div className="flex-1 flex items-center justify-between p-3">
           <div className="space-x-1.5 flex items-center">
-            <MetricIcon icon={'average'} />
-            <p className="text-sm text-gray-700 font-medium">FID</p>
+            <MetricIcon score={metrics['first-contentful-paint'].score * 100} />
+            <p className="text-sm text-gray-700 font-medium">FCP</p>
           </div>
-          <p className="text-sm text-gray-500">320 ms</p>
+          <p className="text-sm text-gray-500">
+            {metrics['first-contentful-paint'].displayValue}
+          </p>
         </div>
         <div className="flex-1 flex items-center justify-between p-3">
           <div className="space-x-1.5 flex items-center">
-            <MetricIcon icon={'fail'} />
+            <MetricIcon
+              score={metrics['cumulative-layout-shift'].score * 100}
+            />
             <p className="text-sm text-gray-700 font-medium">CLS</p>
           </div>
-          <p className="text-sm text-gray-500">0.29</p>
+          <p className="text-sm text-gray-500">
+            {metrics['cumulative-layout-shift'].displayValue}
+          </p>
         </div>
       </div>
     </div>
