@@ -56,3 +56,14 @@ export const getAnalysiData = (result: any) => {
 
   return { metrics, scores, fetchedAt };
 };
+
+export const getAllAnalysesByProjectId = async (projectId: string) => {
+  return await db.analysis.findMany({
+    where: {
+      projectId,
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
+};

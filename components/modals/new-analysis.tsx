@@ -32,12 +32,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { useState } from 'react';
-import { useMutation } from '@tanstack/react-query';
+import { Dispatch, useState, useTransition } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { newAnalysis } from '@/data-access/analyze';
 import { toast } from 'sonner';
 
-const NewAnalysisModal = () => {
+type NewAnalysisModalProps = {
+  setOptimisticAnalysis: Dispatch<any>;
+};
+
+const NewAnalysisModal = ({ setOptimisticAnalysis }: NewAnalysisModalProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const newAnalysisForm = useForm<newAnalysisSchemaType>({
     resolver: zodResolver(newAnalysisSchema),
@@ -47,9 +51,12 @@ const NewAnalysisModal = () => {
     },
   });
 
+  const queryClient = useQueryClient();
+
   const newAnalysisMutation = useMutation({
     mutationFn: newAnalysis,
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['analyses'] });
       toast.success('Your analysis report is ready!');
     },
     onError: (error) => {
@@ -58,10 +65,14 @@ const NewAnalysisModal = () => {
   });
 
   function onSubmit(values: newAnalysisSchemaType) {
+    setOptimisticAnalysis((prev: any) => [
+      { values, isAnalysing: true, id: Math.random().toString() },
+      ...prev,
+    ]);
+    setIsModalOpen(false);
     newAnalysisMutation.mutate({
       ...values,
     });
-    setIsModalOpen(false);
   }
 
   return (
