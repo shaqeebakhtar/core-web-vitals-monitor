@@ -1,6 +1,7 @@
 import { Sparkline } from '@/components/charts/sparkline';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Monitor } from '@prisma/client';
+import { formatDistance } from 'date-fns';
 import { Clock } from 'lucide-react';
 import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
@@ -36,7 +37,11 @@ const MonitorCard = ({ monitor }: MonitorCardProps) => {
             </div>
           </div>
           <div className="flex items-center space-x-1">
-            <p className="whitespace-nowrap text-sm text-gray-500">Jan 13</p>
+            <p className="whitespace-nowrap text-sm text-gray-500">
+              {formatDistance(monitor.createdAt, new Date(), {
+                addSuffix: true,
+              })}
+            </p>
             <p>•</p>
             <Link
               href={monitor.url}
@@ -63,21 +68,21 @@ const MonitorCard = ({ monitor }: MonitorCardProps) => {
           <div className="border-t border-t-gray-200 flex divide-x divide-gray-200">
             <div className="flex-1 flex items-center justify-between p-3">
               <div className="space-x-1.5 flex items-center">
-                <MetricIcon icon={'pass'} />
+                <MetricIcon score={90} />
                 <p className="text-sm text-gray-700 font-medium">LCP</p>
               </div>
               <p className="text-sm text-gray-500">880 ms</p>
             </div>
             <div className="flex-1 flex items-center justify-between p-3">
               <div className="space-x-1.5 flex items-center">
-                <MetricIcon icon={'average'} />
+                <MetricIcon score={64} />
                 <p className="text-sm text-gray-700 font-medium">FID</p>
               </div>
               <p className="text-sm text-gray-500">320 ms</p>
             </div>
             <div className="flex-1 flex items-center justify-between p-3">
               <div className="space-x-1.5 flex items-center">
-                <MetricIcon icon={'fail'} />
+                <MetricIcon score={35} />
                 <p className="text-sm text-gray-700 font-medium">CLS</p>
               </div>
               <p className="text-sm text-gray-500">0.29</p>

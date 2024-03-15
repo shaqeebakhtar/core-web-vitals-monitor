@@ -66,7 +66,12 @@ const NewAnalysisModal = ({ setOptimisticAnalysis }: NewAnalysisModalProps) => {
 
   function onSubmit(values: newAnalysisSchemaType) {
     setOptimisticAnalysis((prev: any) => [
-      { values, isAnalysing: true, id: Math.random().toString() },
+      {
+        values,
+        isAnalysing: true,
+        id: Math.random().toString(),
+        fetchedAt: new Date(),
+      },
       ...prev,
     ]);
     setIsModalOpen(false);

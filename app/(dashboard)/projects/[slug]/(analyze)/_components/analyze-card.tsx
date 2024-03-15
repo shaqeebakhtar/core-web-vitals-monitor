@@ -1,9 +1,10 @@
 import { Skeleton } from '@/components/ui/skeleton';
+import { Analysis } from '@prisma/client';
+import { formatDistance } from 'date-fns';
 import Link from 'next/link';
 import FormFactorIcon from '../../_components/form-factor-icon';
 import MetricIcon from '../../_components/metric-icon';
 import ScoreGauge from '../../_components/score-gauge';
-import { Analysis } from '@prisma/client';
 
 type AnalyzeCardProps = {
   analysis: Analysis;
@@ -30,7 +31,11 @@ const AnalyzeCard = ({ analysis }: AnalyzeCardProps) => {
             </Link>
           </div>
           <div className="flex items-center space-x-1">
-            <p className="whitespace-nowrap text-sm text-gray-500">Jan 13</p>
+            <p className="whitespace-nowrap text-sm text-gray-500">
+              {formatDistance(analysis.fetchedAt, new Date(), {
+                addSuffix: true,
+              })}
+            </p>
             <p>•</p>
             <FormFactorIcon factor={analysis.device} />
           </div>
@@ -129,6 +134,7 @@ type LoadingAnalyzeCardProps = {
     };
     id: string;
     isAnalysing: boolean;
+    fetchedAt: Date;
   };
 };
 
@@ -149,7 +155,11 @@ export const LoadingAnalyzeCard = ({ analysis }: LoadingAnalyzeCardProps) => {
               </p>
             </div>
             <div className="flex items-center space-x-1">
-              <p className="whitespace-nowrap text-sm text-gray-400">Jan 13</p>
+              <p className="whitespace-nowrap text-sm text-gray-400">
+                {formatDistance(analysis.fetchedAt, new Date(), {
+                  addSuffix: true,
+                })}
+              </p>
               <p>•</p>
               <FormFactorIcon
                 factor={analysis.values.device}
