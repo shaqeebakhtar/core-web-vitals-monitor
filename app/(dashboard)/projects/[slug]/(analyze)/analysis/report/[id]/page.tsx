@@ -24,12 +24,12 @@ const ReportPage = async ({
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <Button asChild size={'icon'} variant={'outline'}>
-                <Link href={`/${params.slug}/analyze`}>
+                <Link href={`/projects/${params.slug}/analyze`}>
                   <span className="sr-only">Go back</span>
                   <ArrowLeft className="w-4 h-4" />
                 </Link>
               </Button>
-              <h1 className="text-2xl">Test Report</h1>
+              <h1 className="text-2xl">Analysis Report</h1>
             </div>
           </div>
         </div>

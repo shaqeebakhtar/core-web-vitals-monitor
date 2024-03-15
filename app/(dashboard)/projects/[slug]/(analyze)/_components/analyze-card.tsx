@@ -5,19 +5,26 @@ import Link from 'next/link';
 import FormFactorIcon from '../../_components/form-factor-icon';
 import MetricIcon from '../../_components/metric-icon';
 import ScoreGauge from '../../_components/score-gauge';
+import { useParams, useRouter } from 'next/navigation';
 
 type AnalyzeCardProps = {
   analysis: Analysis;
 };
 
 const AnalyzeCard = ({ analysis }: AnalyzeCardProps) => {
+  const { slug } = useParams() as { slug?: string };
+  const router = useRouter();
+
   const metrics = JSON.parse(analysis.metrics);
   const scores = JSON.parse(analysis.scores);
 
-  console.log(analysis.url, metrics);
-
   return (
-    <div className="border shadow hover:shadow-md rounded-lg bg-white">
+    <div
+      className="border shadow hover:shadow-md rounded-lg bg-white cursor-pointer"
+      onClick={() =>
+        router.push(`/projects/${slug}/analysis/report/${analysis.id}`)
+      }
+    >
       <div className="flex items-center justify-between p-3 sm:p-4">
         <div>
           <div className="flex max-w-fit items-center gap-x-2">
