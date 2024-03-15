@@ -81,16 +81,14 @@ export const AnalyzeCardSkeleton = () => {
     <>
       <div className="border shadow hover:shadow-md rounded-lg bg-white pointer-events-none overflow-hidden">
         <div className="flex items-center justify-between p-3 sm:p-4">
-          <div>
+          <div className="space-y-1">
             <div className="flex max-w-fit items-center gap-x-2">
-              <p className="max-w-[260px] truncate font-medium underline-offset-2 hover:underline sm:max-w-[460px] md:max-w-[540px] xl:max-w-[640px] text-gray-400">
-                https://lucide.dev/icons/?search=phone
-              </p>
+              <Skeleton className="h-5 w-80" />
             </div>
             <div className="flex items-center space-x-1">
-              <p className="whitespace-nowrap text-sm text-gray-400">Jan 13</p>
+              <Skeleton className="w-12 h-4" />
               <p>•</p>
-              <FormFactorIcon factor="desktop" className="opacity-50" />
+              <Skeleton className="w-10 h-4" />
             </div>
           </div>
           <Skeleton className="rounded-full w-12 h-12" />
@@ -106,7 +104,7 @@ export const AnalyzeCardSkeleton = () => {
           <div className="flex-1 flex items-center justify-between p-3">
             <div className="space-x-1.5 flex items-center">
               <Skeleton className="rounded-full w-2 h-2" />
-              <p className="text-sm text-gray-400 font-medium">FID</p>
+              <p className="text-sm text-gray-400 font-medium">FCP</p>
             </div>
             <Skeleton className="w-14 h-4" />
           </div>
