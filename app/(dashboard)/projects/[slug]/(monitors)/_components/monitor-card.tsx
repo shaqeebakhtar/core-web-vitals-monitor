@@ -8,6 +8,7 @@ import { useParams, useRouter } from 'next/navigation';
 import FormFactorIcon from '../../_components/form-factor-icon';
 import MetricIcon from '../../_components/metric-icon';
 import ScoreGauge from '../../_components/score-gauge';
+import { useEffect, useState } from 'react';
 
 type MonitorCardProps = {
   monitor: Monitor;
@@ -16,6 +17,19 @@ type MonitorCardProps = {
 const MonitorCard = ({ monitor }: MonitorCardProps) => {
   const { slug } = useParams() as { slug?: string };
   const router = useRouter();
+  const [latestScores, setLatestScores] = useState<any>({});
+  const [latestMetrics, setLatestMetrics] = useState<any>({});
+  const [performanceHistory, setPerformanceHistory] = useState<number[]>([]);
+
+  useEffect(() => {
+    if (monitor.latestScores) setLatestScores(JSON.parse(monitor.latestScores));
+
+    if (monitor.latestMetrics)
+      setLatestMetrics(JSON.parse(monitor.latestMetrics));
+
+    if (monitor.performanceHistory)
+      setPerformanceHistory(JSON.parse(monitor.performanceHistory));
+  }, [monitor.latestMetrics, monitor.latestScores, monitor.performanceHistory]);
 
   return (
     <div
@@ -54,13 +68,17 @@ const MonitorCard = ({ monitor }: MonitorCardProps) => {
             </Link>
           </div>
         </div>
-        {monitor.latestScores && <ScoreGauge score={96} />}
+        {monitor.latestScores && (
+          <ScoreGauge
+            score={(latestScores['performance']?.score * 100) as number}
+          />
+        )}
       </div>
       {monitor.latestScores || monitor.scoresHistory ? (
         <>
           <Sparkline
             className="h-20"
-            data={[null, null, null, 55, 47, 91, 78]}
+            data={performanceHistory}
             fillOpacity={0.2}
             color="#2563eb"
             strokeWidth={1.5}
@@ -68,24 +86,36 @@ const MonitorCard = ({ monitor }: MonitorCardProps) => {
           <div className="border-t border-t-gray-200 flex divide-x divide-gray-200">
             <div className="flex-1 flex items-center justify-between p-3">
               <div className="space-x-1.5 flex items-center">
-                <MetricIcon score={90} />
+                <MetricIcon
+                  score={latestMetrics['largest-contentful-paint']?.score * 100}
+                />
                 <p className="text-sm text-gray-700 font-medium">LCP</p>
               </div>
-              <p className="text-sm text-gray-500">880 ms</p>
+              <p className="text-sm text-gray-500">
+                {latestMetrics['largest-contentful-paint']?.displayValue}
+              </p>
             </div>
             <div className="flex-1 flex items-center justify-between p-3">
               <div className="space-x-1.5 flex items-center">
-                <MetricIcon score={64} />
-                <p className="text-sm text-gray-700 font-medium">FID</p>
+                <MetricIcon
+                  score={latestMetrics['first-contentful-paint']?.score * 100}
+                />
+                <p className="text-sm text-gray-700 font-medium">FCP</p>
               </div>
-              <p className="text-sm text-gray-500">320 ms</p>
+              <p className="text-sm text-gray-500">
+                {latestMetrics['first-contentful-paint']?.displayValue}
+              </p>
             </div>
             <div className="flex-1 flex items-center justify-between p-3">
               <div className="space-x-1.5 flex items-center">
-                <MetricIcon score={35} />
+                <MetricIcon
+                  score={latestMetrics['cumulative-layout-shift']?.score * 100}
+                />
                 <p className="text-sm text-gray-700 font-medium">CLS</p>
               </div>
-              <p className="text-sm text-gray-500">0.29</p>
+              <p className="text-sm text-gray-500">
+                {latestMetrics['cumulative-layout-shift']?.displayValue}
+              </p>
             </div>
           </div>
         </>

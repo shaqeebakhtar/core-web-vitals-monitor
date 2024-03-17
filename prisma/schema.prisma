@@ -83,18 +83,19 @@ model Analysis {
 }
 
 model Monitor {
-  id             String    @id @default(cuid())
-  projectId      String
-  project        Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
-  name           String
-  url            String
-  device         Device
-  schedule       Schedule
-  latestMetrics  String?   @db.Text
-  latestScores   String?   @db.Text
-  lastFetchedAt  DateTime?
-  scoresHistory  String?   @db.Text
-  metricsHistory String?   @db.Text
+  id                 String    @id @default(cuid())
+  projectId          String
+  project            Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  name               String
+  url                String
+  device             Device
+  schedule           Schedule
+  latestMetrics      String?   @db.Text
+  latestScores       String?   @db.Text
+  lastFetchedAt      DateTime?
+  scoresHistory      String?   @db.Text
+  metricsHistory     String?   @db.Text
+  performanceHistory String?   @db.Text
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

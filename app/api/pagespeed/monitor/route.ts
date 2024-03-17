@@ -6,6 +6,7 @@ import {
   getLatestScores,
   getMetricsHistory,
   getMonitorById,
+  getPerformanceHistory,
   getScoresHistory,
   updateMonitor,
 } from '@/services/monitor';
@@ -75,12 +76,15 @@ export const PATCH = async (req: Request) => {
     monitor.metricsHistory
   );
 
+  const performanceHistory = getPerformanceHistory(scoresHistory.performance);
+
   updateMonitor({
     monitorId,
     latestMetrics: JSON.stringify(latestMetrics),
     latestScores: JSON.stringify(latestScores),
     scoresHistory: JSON.stringify(scoresHistory),
     metricsHistory: JSON.stringify(metricsHistory),
+    performanceHistory: JSON.stringify(performanceHistory),
     lastFetchedAt: pagespeedResult.lighthouseResult.fetchTime,
   });
 
@@ -90,6 +94,7 @@ export const PATCH = async (req: Request) => {
       latestScores,
       scoresHistory,
       metricsHistory,
+      performanceHistory,
     },
     { status: 200 }
   );

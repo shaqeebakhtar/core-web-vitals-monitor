@@ -46,6 +46,7 @@ type updateMonitorSchema = {
   latestScores: string;
   scoresHistory: string;
   metricsHistory: string;
+  performanceHistory: string;
   lastFetchedAt: Date;
 };
 
@@ -55,6 +56,7 @@ export const updateMonitor = async ({
   latestScores,
   scoresHistory,
   metricsHistory,
+  performanceHistory,
   lastFetchedAt,
 }: updateMonitorSchema) => {
   return await db.monitor.update({
@@ -64,6 +66,7 @@ export const updateMonitor = async ({
       latestScores,
       scoresHistory,
       metricsHistory,
+      performanceHistory,
       lastFetchedAt,
     },
   });
@@ -248,4 +251,18 @@ export const getMetricsHistory = async (
   }
 
   return metricsHistory;
+};
+
+export const getPerformanceHistory = (performances: any) => {
+  const performancesScores = performances.map((item: any) => item.score * 100);
+
+  const performanceHistory = [];
+
+  for (let i = 0; i < Math.max(0, 7 - performancesScores.length); i++) {
+    performanceHistory.push(null);
+  }
+
+  performanceHistory.push(...performancesScores);
+
+  return performanceHistory;
 };

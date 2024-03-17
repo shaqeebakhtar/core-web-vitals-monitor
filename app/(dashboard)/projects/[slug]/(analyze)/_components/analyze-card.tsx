@@ -6,6 +6,7 @@ import FormFactorIcon from '../../_components/form-factor-icon';
 import MetricIcon from '../../_components/metric-icon';
 import ScoreGauge from '../../_components/score-gauge';
 import { useParams, useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 type AnalyzeCardProps = {
   analysis: Analysis;
@@ -15,8 +16,8 @@ const AnalyzeCard = ({ analysis }: AnalyzeCardProps) => {
   const { slug } = useParams() as { slug?: string };
   const router = useRouter();
 
-  const metrics = JSON.parse(analysis.metrics);
-  const scores = JSON.parse(analysis.scores);
+  const [metrics, setMetrics] = useState(JSON.parse(analysis.metrics));
+  const [scores, setScores] = useState(JSON.parse(analysis.scores));
 
   return (
     <div
@@ -99,7 +100,7 @@ export const AnalyzeCardSkeleton = () => {
             </div>
             <div className="flex items-center space-x-1">
               <Skeleton className="w-12 h-4" />
-              <p>•</p>
+              <p className="text-gray-200">•</p>
               <Skeleton className="w-10 h-4" />
             </div>
           </div>
