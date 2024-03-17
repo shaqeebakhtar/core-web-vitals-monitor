@@ -17,6 +17,14 @@ export const getAllMonitorsByProjectId = async (projectId: string) => {
   });
 };
 
+export const getMonitorByMonitorId = async (monitorId: string) => {
+  return await db.monitor.findUnique({
+    where: {
+      id: monitorId,
+    },
+  });
+};
+
 export const createMonitor = async ({
   name,
   url,
@@ -258,11 +266,17 @@ export const getPerformanceHistory = (performances: any) => {
 
   const performanceHistory = [];
 
-  for (let i = 0; i < Math.max(0, 7 - performancesScores.length); i++) {
+  const performancesScoresLen = Math.max(0, 7 - performancesScores.length);
+
+  for (let i = 0; i < performancesScoresLen; i++) {
     performanceHistory.push(null);
   }
 
-  performanceHistory.push(...performancesScores);
+  const performanceHistoryLen = Math.max(0, 7 - performanceHistory.length);
+
+  for (let i = 0; i < performanceHistoryLen; i++) {
+    performanceHistory.push(performancesScores[i]);
+  }
 
   return performanceHistory;
 };

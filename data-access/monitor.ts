@@ -41,3 +41,15 @@ export const getAllMonitors = async (slug: string) => {
 
   return res.json();
 };
+
+export const getMonitorReport = async (slug: string, monitorId: string) => {
+  const res = await fetch(`/api/monitor/${slug}/${monitorId}`);
+
+  if (res.status === 401) {
+    throw new Error('Unauthorized: Login required!');
+  } else if (res.status === 404) {
+    throw new Error('Not found');
+  }
+
+  return res.json();
+};
