@@ -8,7 +8,11 @@ const Settings = async ({ params }: { params: { slug: string } }) => {
     redirect(`/login?next=/projects/${params.slug}/settings`);
   }
 
-  return <div>Settings</div>;
+  return (
+    <div className="rounded-lg border border-gray-200 bg-white p-5 sm:p-10">
+      General
+    </div>
+  );
 };
 
 export default Settings;
